@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hpl-GB-6fc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Avenir.ttc">
+            <string>Avenir-Medium</string>
+        </array>
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Profile View Controller-->
+        <scene sceneID="N4A-4b-Kfl">
+            <objects>
+                <tableViewController id="hpl-GB-6fc" customClass="ProfileViewController" customModule="bubble" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" id="7Db-G1-btD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="Zvx-BQ-GBN">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="454" id="K3y-ON-uYE">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K3y-ON-uYE" id="Xi8-nM-jQI">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="453.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xKA-so-uSE">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="329"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.74473947289999998" green="0.8727217317" blue="0.99357014889999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9B6-iv-f7r" customClass="RoundedView" customModule="GetRecd" customModuleProvider="target">
+                                                    <rect key="frame" x="137" y="286.5" width="100" height="100"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile-pic" translatesAutoresizingMaskIntoConstraints="NO" id="v06-h9-nIB">
+                                                            <rect key="frame" x="5" y="4.5" width="90" height="90"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="kk2-Ho-QaG"/>
+                                                        <constraint firstAttribute="height" constant="100" id="s2C-42-l3R"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dhruv Upadhyay" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueJ-bi-HtN">
+                                                    <rect key="frame" x="16" y="394.5" width="343" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="343" id="dAP-hE-4yc"/>
+                                                        <constraint firstAttribute="height" constant="24" id="qHn-PQ-B3h"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                                    <color key="textColor" red="0.3411764705882353" green="0.38823529411764707" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="this is a bio" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSh-f7-ltS">
+                                                    <rect key="frame" x="39" y="418.5" width="297" height="35.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="296.5" id="cqb-cX-ebB"/>
+                                                        <constraint firstAttribute="height" priority="250" constant="92" id="pMy-7w-SJs"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.3411764706" green="0.38823529410000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tSh-f7-ltS" firstAttribute="top" secondItem="ueJ-bi-HtN" secondAttribute="bottom" id="6Vd-tW-g6o"/>
+                                                <constraint firstItem="tSh-f7-ltS" firstAttribute="centerX" secondItem="Xi8-nM-jQI" secondAttribute="centerX" id="6Xm-Ig-qmB"/>
+                                                <constraint firstItem="ueJ-bi-HtN" firstAttribute="centerX" secondItem="Xi8-nM-jQI" secondAttribute="centerX" id="BRV-du-PeB"/>
+                                                <constraint firstItem="9B6-iv-f7r" firstAttribute="centerX" secondItem="Xi8-nM-jQI" secondAttribute="centerX" id="Bfv-qV-m06"/>
+                                                <constraint firstAttribute="bottom" secondItem="tSh-f7-ltS" secondAttribute="bottom" id="D6D-Ku-2Mb"/>
+                                                <constraint firstItem="ueJ-bi-HtN" firstAttribute="top" secondItem="9B6-iv-f7r" secondAttribute="bottom" constant="8" id="lxj-s5-SaX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="81" id="GOG-B0-RCC">
+                                        <rect key="frame" x="0.0" y="454" width="375" height="81"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GOG-B0-RCC" id="AHl-np-sFl">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="131" id="XJm-cX-d1L">
+                                        <rect key="frame" x="0.0" y="535" width="375" height="131"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XJm-cX-d1L" id="fuE-CC-wpx">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="hpl-GB-6fc" id="Jng-Y5-ZFZ"/>
+                            <outlet property="delegate" destination="hpl-GB-6fc" id="RSZ-oC-AMc"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="bioTextView" destination="tSh-f7-ltS" id="4zT-kV-nnO"/>
+                        <outlet property="nameLabel" destination="ueJ-bi-HtN" id="dbN-D9-fsu"/>
+                        <outlet property="profilePicture" destination="v06-h9-nIB" id="MV7-Sc-Dnx"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7KH-6z-sho" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-104.8" y="83.208395802098963"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="profile-pic" width="512" height="512"/>
+    </resources>
+</document>

@@ -24,12 +24,6 @@ class DataService {
     
     let bubbleCollection = Firestore.firestore().collection("Bubble")
     let bubbleVoteCollection = Firestore.firestore().collection("BubbleVote")
-    /* private var _REF_USERS = something here
-    
-    var REF_USERS: some_type {
-        return _REF_USERS
-    }
-     */
     
     // TODO: complete following functions: createOrUpdateUser, getUser, getProfilePicture
     
@@ -48,8 +42,7 @@ class DataService {
     }
     
     // Retrives user based on userID/user's key in Firebase
-    //func getUser(userID: String,  handler: @escaping (_ user: User) -> ()) {
-    func getUser(userID: String)-> [String:Any] {
+    func getUser(userID: String,  handler: @escaping (_ user: User) -> ()) {
         var userData: [String:Any] = [:]
         // retrieve user from database and send back using handler
        // db.collection("users").whereField(userID, isEqualTo: userID).getDocuments() { (querySnapshot, err) in
@@ -67,7 +60,6 @@ class DataService {
                 }
             }
         }
-        return userData
     }
     
     // Gets a user's profile picture from Firebase Storage

@@ -9,25 +9,17 @@
 import Foundation
 
 class User {
-    private var _firstName: String!
-    private var _lastName: String!
+    private var _name: String!
     private var _fullName: String!
     private var _email: String!
     private var _userID: String!
+    private var _bio: String?
     private var _profilePictureURL: String?
     
     // TODO: Add other user class properties (include private variables with getters)
     
-    var firstName: String {
-        return _firstName
-    }
-    
-    var lastName: String {
-        return _lastName
-    }
-    
-    var fullName: String {
-        return _fullName
+    var name: String {
+        return _name
     }
     
     var email: String {
@@ -36,6 +28,10 @@ class User {
     
     var userID: String {
         return _userID
+    }
+    
+    var bio: String {
+        return _bio ?? ""
     }
     
     var profilePictureURL: String {
@@ -48,20 +44,16 @@ class User {
         
         self._userID = userID
         
-        if let firstName = userDict["firstName"] as? String {
-            self._firstName = firstName
-        }
-        
-        if let lastName = userDict["lastName"] as? String {
-            self._lastName = lastName
-        }
-        
-        if let fullName = userDict["fullName"] as? String {
-            self._fullName = fullName
+        if let name = userDict["name"] as? String {
+            self._name = name
         }
         
         if let email = userDict["email"] as? String {
             self._email = email
+        }
+        
+        if let bio = userDict["bio"] as? String {
+            self._bio = bio
         }
         
         if let profilePictureURL = userDict["profilePictureURL"] as? String {
