@@ -75,23 +75,19 @@ class AuthRegisterViewController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
             return
         }
-        AuthService.sharedInstance.registerEmail(email: emailField.text!, password: passwordField.text!, confirmPassword: confirmPasswordField.text!, success:{
-           (true) in
-            
-            guard let uid = Auth.auth().currentUser?.uid else { return }
-            
-            print("Account Created")
-            let userData: [String:Any] = [
+        
+        let newUserData: [String: Any] = [
             "name" : fullName,
-            "uid" : uid,
-            "email": email,
-            "bio": "No bio",
-            "postCount": 0]
-
-            DataService.instance.createUser(uid: uid, userData: userData)
+            "password": password,
+            "email": email]
+        
+        view.isUserInteractionEnabled = false
+        AuthService.sharedInstance.registerEmail(userData: newUserData, success: { (newUser) in
             self.performSegue(withIdentifier: "segueOnSuccessfulActCreated", sender: self)
+            self.view.isUserInteractionEnabled = true
         }) { (error) in
             print(error.localizedDescription)
+            self.view.isUserInteractionEnabled = true
         }
     }
 }

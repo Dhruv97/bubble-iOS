@@ -33,19 +33,6 @@ class DataService {
     // TODO: complete following functions: createUser, getUser, getProfilePicture
     
     // Adds/updates user's entry in the Firebase database
-    func createUser(uid: String, userData: [String:Any]) {
-        // add user to database
-        // Add a new document with a generated ID
-      var ref: DocumentReference? = nil
-        userCollection.document(uid).updateData(userData) { (error) in
-            if error != nil {
-                print("USER UPDATE ERROR: \(error?.localizedDescription)")
-            } else {
-                print("USER CREATED!")
-            }
-        }
-    }
-    
     func updateUser(uid: String, userData: [String:Any]) {
         userCollection.document(uid).updateData(userData) { (error) in
             if error != nil {
@@ -61,32 +48,22 @@ class DataService {
     }
     
     // Retrives user based on userID/user's key in Firebase
-    func getUser(userID: String,  handler: @escaping (_ user: User) -> ()) {
-        var userData: [String:Any] = [:]
-        // retrieve user from database and send back using handler
-       // db.collection("users").whereField(userID, isEqualTo: userID).getDocuments() { (querySnapshot, err) in
-            userCollection.whereField("uid", isEqualTo: userID).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("DOC DATA: \(document.data())")
-                    //print("\(document.documentID) => \(document.data())")
-                     userData["name"] = document.data()["name"]
-                     userData["uid"] = document.data()["uid"]
-                     userData["email"] = document.data()["email"]
-                     userData["postCount"] = document.data()["postCount"]
-                     userData["bio"] = document.data()["bio"] ?? "No bio"
-                    
-                     let user = User(userDict: userData, userID: userID)
-                    return handler(user)
-                }
+    func getUser(userID: String,  handler: @escaping (_ user: BubbleUser) -> ()) {
+        userCollection.document(userID).getDocument { (snapshot, error) in
+            
+            if error != nil {
+                print("GET USER ERROR: \(error?.localizedDescription)")
+                return
             }
+            
+            guard let userDict = snapshot?.data() else { return }
+            let user = BubbleUser(userDict: userDict, userID: userID)
+            return handler(user)
         }
     }
     
     // Gets a user's profile picture from Firebase Storage
-    func getProfilePicture(user: User, handler: @escaping (_ image: UIImage) -> ()) {
+    func getProfilePicture(user: BubbleUser, handler: @escaping (_ image: UIImage) -> ()) {
         guard let url = URL(string: user.profilePictureURL) else {
             return
         }
@@ -251,4 +228,34 @@ class DataService {
             }
         })
     }
+    
+    func deleteUserData(uid: String, success: @escaping (Bool)->(), failure: @escaping (Error)->()) {
+        userCollection.document(uid).setData([:]) { (error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success(true)
+            }
+        }
+    }
+    
+    func deleteBubble(bubble: Bubble, success: @escaping (Bool) ->(), failure: @escaping (Error) -> ()) {
+        
+        let bubbleRef = bubbleCollection.document(bubble.uid)
+        let votingRef = bubbleVoteCollection.document(bubble.uid)
+        
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.deleteDocument(bubbleRef)
+            transaction.deleteDocument(votingRef)
+            
+            return nil
+        }, completion: { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success(true)
+            }
+        })
+    }
+    
 }

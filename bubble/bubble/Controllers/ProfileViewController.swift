@@ -15,7 +15,7 @@ class ProfileViewController: UITableViewController {
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var bioTextView: UITextView!
     
-    var currentUser: User!
+    var currentUser: BubbleUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()

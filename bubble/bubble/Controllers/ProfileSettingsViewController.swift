@@ -15,7 +15,7 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     @IBOutlet weak var bioTextView: UITextView!
     
     var imagePicker: UIImagePickerController!
-    var currentUser: User!
+    var currentUser: BubbleUser!
     var profilePictureImage: UIImage? = #imageLiteral(resourceName: "profile-pic")
     var profilePictureURL: String?
     
@@ -72,7 +72,8 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     }
     
     func saveUserInfo() {
-        var userData = ["bio": bioTextView.text]
+        print("SAVING URL: \(profilePictureURL)")
+        var userData = ["bio": bioTextView.text, "profilePictureURL": profilePictureURL ?? "no picture"] as [String : Any]
         
         if profilePictureURL != nil {
             userData["profilePictureURL"] = profilePictureURL

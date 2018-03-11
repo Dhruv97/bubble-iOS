@@ -21,7 +21,7 @@ class MapViewController: UIViewController {
     var bubbles = [Bubble]()
     let bubbleSemaphore = DispatchSemaphore(value: 1)
     var currentBubble: Bubble!
-    var currentUser: User?
+    var currentUser: BubbleUser?
 
     override func viewDidLoad() {
         super.viewDidLoad()

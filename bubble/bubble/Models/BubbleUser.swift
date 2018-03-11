@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  BubbleUser.swift
 //  bubble
 //
 //  Created by Dhruv Upadhyay on 2/8/18.
@@ -8,9 +8,8 @@
 
 import Foundation
 
-class User {
+class BubbleUser {
     private var _name: String!
-    private var _fullName: String!
     private var _email: String!
     private var _userID: String!
     private var _bio: String?
