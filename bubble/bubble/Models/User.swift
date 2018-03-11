@@ -15,6 +15,7 @@ class User {
     private var _userID: String!
     private var _bio: String?
     private var _profilePictureURL: String?
+    private var _userDict: [String:Any]!
     
     // TODO: Add other user class properties (include private variables with getters)
     
@@ -38,9 +39,15 @@ class User {
         return _profilePictureURL ?? ""
     }
     
+    var userDict: [String:Any] {
+        return _userDict
+    }
+    
     init(userDict: [String:Any], userID: String) {
         
         // TODO: Complete intializer once other properties have been added to the class
+        
+        self._userDict = userDict
         
         self._userID = userID
         

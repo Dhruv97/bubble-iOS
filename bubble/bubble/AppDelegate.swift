@@ -21,10 +21,10 @@ import GoogleSignIn
         FirebaseApp.configure()
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        if Auth.auth().currentUser != nil {
+      /*  if Auth.auth().currentUser != nil {
             let storyboard = UIStoryboard(name: "Map", bundle: nil)
             window?.rootViewController = storyboard.instantiateInitialViewController()
-        }
+        }*/
         
         return true
      }

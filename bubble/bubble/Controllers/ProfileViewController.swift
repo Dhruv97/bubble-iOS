@@ -40,20 +40,30 @@ class ProfileViewController: UITableViewController {
         return 3
     }
     
-   /* override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Settings", let settingsVC = segue.destination as? ProfileSettingsViewController {
             settingsVC.currentUser = currentUser
             settingsVC.profilePictureImage = profilePicture.image
         }
     }
-    */
+    
+    @IBAction func backPressed(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
     func getCurrentUser() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("NO USER!")
+            return
+            
+        }
         DataService.instance.getUser(userID: uid) { (user) in
             self.currentUser = user
             
@@ -70,5 +80,4 @@ class ProfileViewController: UITableViewController {
             })
         }
     }
-    
 }

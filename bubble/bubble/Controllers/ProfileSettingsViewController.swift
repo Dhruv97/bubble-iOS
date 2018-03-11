@@ -7,89 +7,188 @@
 //
 
 import UIKit
+import FirebaseStorage
 
-class ProfileSettingsViewController: UITableViewController {
-
+class ProfileSettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+    
+    @IBOutlet weak var profilePicture: UIImageView!
+    @IBOutlet weak var bioTextView: UITextView!
+    
+    var imagePicker: UIImagePickerController!
+    var currentUser: User!
+    var profilePictureImage: UIImage? = #imageLiteral(resourceName: "profile-pic")
+    var profilePictureURL: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        bioTextView.delegate = self
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.profilePicture.layer.cornerRadius = self.profilePicture.frame.size.width/2
+            self.profilePicture.image = self.profilePictureImage
+            self.bioTextView.text = self.currentUser.bio ?? "No bio"
+        }
     }
-
-    // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 3
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 4
+        case 2:
+            return 1
+        default:
+            return 0
+        }
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    @IBAction func savePressed(_ sender: Any) {
+        saveUserInfo()
+        dismiss(animated: true, completion: nil)
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+    
+    
+    func deleteAccount() {
+        AuthService.sharedInstance.deleteAccount { (success) -> (Void) in
+            if success {
+                print("SUCCESS DELETE ACCOUNT")
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "SignIn", sender: self)
+                }
+            } else {
+                print("DELETE ACCOUNT FAILED")
+            }
+        }
+    }
+    
+    func saveUserInfo() {
+        var userData = ["bio": bioTextView.text]
+        
+        if profilePictureURL != nil {
+            userData["profilePictureURL"] = profilePictureURL
+        }
+        
+        DataService.instance.updateUser(uid: currentUser.userID, userData: userData)
+        
+    }
+    
+    func logOut() {
+        AuthService.sharedInstance.signOut { (success) -> (Void) in
+            if success {
+                print("SUCCESS SIGN OUT")
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "SignIn", sender: self)
+                }
+            } else {
+                print("SIGN OUT FAILED")
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("CELL SELECTED: \(indexPath.section)")
+        if indexPath.section == 1, indexPath.row == 3 {
+            print("LOG OUT PRESSED")
+            logOut()
+        }
+        
+        if indexPath.section == 1, indexPath.row == 2 {
+            print("DELETE ACCOUNT PRESSED")
+            
+            let alert = UIAlertController(title: "Deleting Account", message: "Are you sure you want to delete your account? This cannot be undone!", preferredStyle: .alert)
+            let yes = UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
+                self.deleteAccount()
+            })
+            
+            let no = UIAlertAction(title: "No", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+            })
+            
+            alert.addAction(yes)
+            alert.addAction(no)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+    @IBAction func editPicturePressed(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.imagePicker = UIImagePickerController()
+            self.imagePicker.delegate = self
+            self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.imagePicker.allowsEditing = true
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage else {
+            print("A VALID IMAGE WAS NOT SELECTED")
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.profilePicture.image = selectedImage
+        }
+        
+        profilePictureImage = selectedImage
+        guard let profileImage = profilePictureImage, let imageData = UIImageJPEGRepresentation(profileImage, 0.2) else {
+            return
+        }
+        
+        let imageUID = NSUUID().uuidString
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        
+        DataService.instance.REF_PROFILE_PICS.child(imageUID).putData(imageData, metadata: metaData) { (metaData, error) in
+            
+            if error != nil {
+                print("IMAGE UPLOAD ERROR: Image wasn't uploaded to Firebase")
+            } else {
+                print("IMAGE UPLOAD SUCCESS: Image was uploaded to Firebase")
+                guard let imageURL = metaData?.downloadURL()?.absoluteString else {
+                    return
+                }
+                
+                self.profilePictureURL = imageURL
+                print("IMAGE URL: \(String(describing: self.profilePictureURL))")
+                
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.imagePicker.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        
+        let count = bioTextView.text.count
+        if range.length + range.location > count {
+            return false
+        }
+        
+        let newLength = count + text.count - range.length
+        return newLength <= 140
+    }
+    
+    override var prefersStatusBarHidden: Bool {
         return true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

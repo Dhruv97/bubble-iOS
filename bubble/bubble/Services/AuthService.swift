@@ -39,6 +39,32 @@ class AuthService {
         } 
     }
     
+    func signOut(success: @escaping (Bool) -> (Void)) {
+        if Auth.auth().currentUser != nil {
+            do {
+                try Auth.auth().signOut()
+            } catch let signOutError as NSError {
+                success(false)
+                print("Error signing out: %@", signOutError)
+            }
+            success(true)
+        }
+    }
+    
+    func deleteAccount(success: @escaping (Bool) -> (Void)) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        DataService.instance.deleteUser(uid: uid)
+        Auth.auth().currentUser?.delete(completion: { (error) in
+            if error != nil {
+                success(false)
+                print("Error deleting user: \(String(describing: error))")
+            } else {
+                success(true)
+            }
+        })
+    }
+    
 
 /*class AuthService : NSObject, GIDSignInDelegate{
     //class AuthService {
