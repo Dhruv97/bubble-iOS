@@ -37,7 +37,13 @@ class ProfileViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 1 {
+            performSegue(withIdentifier: "PostedBubbles", sender: self)
+        }
     }
     
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

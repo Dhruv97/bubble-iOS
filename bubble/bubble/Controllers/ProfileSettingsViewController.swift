@@ -8,8 +8,9 @@
 
 import UIKit
 import FirebaseStorage
+import MessageUI
 
-class ProfileSettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class ProfileSettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var bioTextView: UITextView!
@@ -119,6 +120,15 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
             alert.addAction(no)
             self.present(alert, animated: true, completion: nil)
         }
+        
+        if indexPath.section == 2, indexPath.row == 0 {
+            let mailComposeViewController = configureMailController()
+            if(MFMailComposeViewController.canSendMail()){
+                self.present(mailComposeViewController, animated: true, completion: nil)
+            } else{
+                showMailError()
+            }
+        }
     }
     
     
@@ -190,6 +200,23 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func configureMailController() -> MFMailComposeViewController{
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients(["cs307idebate@gmail.com"])
+        mailComposerVC.setSubject("Feedback")
+        return mailComposerVC
+    }
+    func showMailError(){
+        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device couldn't send the email", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "OK", style: .default, handler: nil)
+        sendMailErrorAlert.addAction(dismiss)
+        self.present(sendMailErrorAlert, animated: true, completion: nil)
+    }
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 

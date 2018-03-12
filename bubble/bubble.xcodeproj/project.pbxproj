@@ -37,6 +37,8 @@
 		FC1126A12053865C006BC6A6 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1126A02053865C006BC6A6 /* RoundedView.swift */; };
 		FC1126A320539582006BC6A6 /* BubbleAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1126A220539582006BC6A6 /* BubbleAnnotation.swift */; };
 		FC2EBA002055D7E7007799B7 /* BubbleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2EB9FF2055D7E6007799B7 /* BubbleUser.swift */; };
+		FC2EBA022055FAB9007799B7 /* UserBubblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2EBA012055FAB9007799B7 /* UserBubblesViewController.swift */; };
+		FC2EBA042055FB58007799B7 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2EBA032055FB58007799B7 /* BubbleCell.swift */; };
 		FCD6F0BB202CD8C200A658C8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD6F0BA202CD8C200A658C8 /* DataService.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +103,8 @@
 		FC1126A02053865C006BC6A6 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		FC1126A220539582006BC6A6 /* BubbleAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleAnnotation.swift; sourceTree = "<group>"; };
 		FC2EB9FF2055D7E6007799B7 /* BubbleUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleUser.swift; sourceTree = "<group>"; };
+		FC2EBA012055FAB9007799B7 /* UserBubblesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBubblesViewController.swift; sourceTree = "<group>"; };
+		FC2EBA032055FB58007799B7 /* BubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		FCD6F0BA202CD8C200A658C8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +237,7 @@
 				C7B1450C202D082D00C9832F /* CreateBubbleView.swift */,
 				FC11269A2053820E006BC6A6 /* Profile.storyboard */,
 				FC1126A02053865C006BC6A6 /* RoundedView.swift */,
+				FC2EBA032055FB58007799B7 /* BubbleCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				249C180B2050867B009E20A4 /* ARViewController.swift */,
 				FC11269C2053841B006BC6A6 /* ProfileViewController.swift */,
 				FC11269E20538428006BC6A6 /* ProfileSettingsViewController.swift */,
+				FC2EBA012055FAB9007799B7 /* UserBubblesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -615,6 +621,7 @@
 				2AD33CD32039EF2900919952 /* AuthEntryViewController.swift in Sources */,
 				240BBE97202F9D7C00DD1524 /* MapViewController.swift in Sources */,
 				C7B14506202D013500C9832F /* Bubble.swift in Sources */,
+				FC2EBA042055FB58007799B7 /* BubbleCell.swift in Sources */,
 				24E9978F202232DE009EF2FF /* AppDelegate.swift in Sources */,
 				FC11269F20538428006BC6A6 /* ProfileSettingsViewController.swift in Sources */,
 				249C180C2050867C009E20A4 /* ARViewController.swift in Sources */,
@@ -622,6 +629,7 @@
 				FC1126A12053865C006BC6A6 /* RoundedView.swift in Sources */,
 				C7B1450D202D082D00C9832F /* CreateBubbleView.swift in Sources */,
 				2A097B1F2033A5A800DB2EAC /* AuthService.swift in Sources */,
+				FC2EBA022055FAB9007799B7 /* UserBubblesViewController.swift in Sources */,
 				FC2EBA002055D7E7007799B7 /* BubbleUser.swift in Sources */,
 				FC11269D2053841B006BC6A6 /* ProfileViewController.swift in Sources */,
 				FCD6F0BB202CD8C200A658C8 /* DataService.swift in Sources */,
