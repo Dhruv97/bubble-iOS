@@ -149,26 +149,6 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
             return
         }
         
-        let imageUID = NSUUID().uuidString
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpeg"
-        
-        DataService.instance.REF_PROFILE_PICS.child(imageUID).putData(imageData, metadata: metaData) { (metaData, error) in
-            
-            if error != nil {
-                print("IMAGE UPLOAD ERROR: Image wasn't uploaded to Firebase")
-            } else {
-                print("IMAGE UPLOAD SUCCESS: Image was uploaded to Firebase")
-                guard let imageURL = metaData?.downloadURL()?.absoluteString else {
-                    return
-                }
-                
-                self.profilePictureURL = imageURL
-                print("IMAGE URL: \(String(describing: self.profilePictureURL))")
-                
-            }
-        }
-        
         DispatchQueue.main.async {
             self.imagePicker.dismiss(animated: true, completion: nil)
         }
